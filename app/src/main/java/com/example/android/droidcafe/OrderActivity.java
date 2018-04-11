@@ -33,6 +33,7 @@ public class OrderActivity extends AppCompatActivity {
 
     /**
      * Sets the content view to activity_order.
+     *
      * @param savedInstanceState Saved instance.
      */
     @Override
