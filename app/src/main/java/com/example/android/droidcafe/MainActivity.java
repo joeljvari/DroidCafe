@@ -17,9 +17,9 @@
 package com.example.android.droidcafe;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -28,11 +28,10 @@ import android.view.View;
 import android.widget.Toast;
 
 /**
- * This app shows food images the user can tap, which displays a toast message
- * showing which food item was chosen and launches a second activity.
- * The second activity lets the user choose a delivery method using radio buttons,
- * and displays a Toast message showing the choice. This app is a demo of
- * the options menu, clickable images, and radio buttons.
+ * This app shows images used as buttons to launch a second activity
+ * and displays a Toast message showing the delivery method chosen
+ * for a Droid Cafe food order. It also shows how to set up
+ * the options menu and floating action button.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayMap();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
@@ -75,28 +75,19 @@ public class MainActivity extends AppCompatActivity {
      * Handles app bar item clicks.
      *
      * @param item Item clicked.
-     * @return True if one of the defined items was clicked.
+     * @return Returns true if one of the defined items was clicked.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle app bar item clicks here. The app bar will
+        // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.action_order:
-                displayToast(getString(R.string.action_order_message));
-                return true;
-            case R.id.action_status:
-                displayToast(getString(R.string.action_status_message));
-                return true;
-            case R.id.action_favorites:
-                displayToast(getString(R.string.action_favorites_message));
-                return true;
-            case R.id.action_contact:
-                displayToast(getString(R.string.action_contact_message));
-                return true;
-            default:
-                // Do nothing
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if (id == R.id.action_settings) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -123,28 +114,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Displays a Toast message for the food order and starts the OrderActivity activity.
+     * Displays a Toast message for the food order.
      *
      * @param message Message to display.
      */
     public void showFoodOrder(String message) {
-        displayToast(message);
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, OrderActivity.class);
         startActivity(intent);
-    }
-
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    public void displayMap() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        // Using the coordinates for Google headquarters.
-        String data = getString(R.string.google_mtv_coord_zoom12);
-        intent.setData(Uri.parse(data));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
     }
 }
