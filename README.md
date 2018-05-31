@@ -16,10 +16,3 @@ so that when the user taps the floating action button, it launches the Maps app.
 
 This app has been enhanced to include the Settings Activity template with a
 custom setting (Account: Market) and other settings from the template.
-
-Getting Started
----------------
-
-1.
-2.
-3.
